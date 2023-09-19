@@ -10,19 +10,16 @@ class MockHarmonyPluginPlatform
 
   @override
   Future<String> getHarmonyVersion() {
-    // TODO: implement getHarmonyVersion
     throw UnimplementedError();
   }
 
   @override
   Future<bool> isHarmonyOS() {
-    // TODO: implement isHarmonyOS
     throw UnimplementedError();
   }
 
   @override
   Future<bool> isHarmonyPureMode() {
-    // TODO: implement isHarmonyPureMode
     throw UnimplementedError();
   }
 }
