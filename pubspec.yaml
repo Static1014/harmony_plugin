@@ -4,8 +4,10 @@ version: 0.0.2
 homepage: https://github.com/Static1014/harmony_plugin.git
 
 environment:
-  sdk: '>=3.1.2 <4.0.0'
-  flutter: '>=3.3.0'
+  sdk: '>=3.1.0 <4.0.0'
+  flutter: ">=1.17.0"
+#  sdk: '>=3.1.2 <4.0.0'
+#  flutter: '>=3.3.0'
 
 dependencies:
   flutter:
