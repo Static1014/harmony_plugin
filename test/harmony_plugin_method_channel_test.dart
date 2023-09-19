@@ -6,22 +6,18 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   MethodChannelHarmonyPlugin platform = MethodChannelHarmonyPlugin();
-  const MethodChannel channel = MethodChannel('harmony_plugin');
+  const MethodChannel channel = MethodChannel('com.static4u.harmony_plugin');
 
   setUp(() {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(
       channel,
       (MethodCall methodCall) async {
-        return '42';
+        return false;
       },
     );
   });
 
   tearDown(() {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
-  });
-
-  test('getPlatformVersion', () async {
-    expect(await platform.getPlatformVersion(), '42');
   });
 }

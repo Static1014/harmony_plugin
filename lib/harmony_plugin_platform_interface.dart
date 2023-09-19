@@ -23,7 +23,18 @@ abstract class HarmonyPluginPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
+  /// 是否是鸿蒙系统
+  Future<bool> isHarmonyOS() {
+    throw UnimplementedError('isHarmonyOS() has not been implemented.');
+  }
+
+  /// 获取鸿蒙系统版本
+  Future<String> getHarmonyVersion() {
+    throw UnimplementedError('getHarmonyVersion() has not been implemented.');
+  }
+
+  /// 是否是鸿蒙纯净模式
+  Future<bool> isHarmonyPureMode() {
+    throw UnimplementedError('isHarmonyPureMode() has not been implemented.');
   }
 }

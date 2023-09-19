@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:harmony_plugin/harmony_plugin.dart';
 
@@ -16,7 +16,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  bool _isHarmony = false;
+  bool _isPureMode = false;
+  String _harmonyVersion = '';
   final _harmonyPlugin = HarmonyPlugin();
 
   @override
@@ -27,14 +29,19 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    String platformVersion;
+    bool isHarmony;
+    bool isPureMode;
+    String harmonyVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      platformVersion =
-          await _harmonyPlugin.getPlatformVersion() ?? 'Unknown platform version';
+      isHarmony = await _harmonyPlugin.isHarmonyOS();
+      harmonyVersion = await _harmonyPlugin.getHarmonyVersion();
+      isPureMode = await _harmonyPlugin.isHarmonyPureMode();
     } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
+      isHarmony = false;
+      harmonyVersion = '';
+      isPureMode = false;
     }
 
     // If the widget was removed from the tree while the asynchronous platform
@@ -43,7 +50,9 @@ class _MyAppState extends State<MyApp> {
     if (!mounted) return;
 
     setState(() {
-      _platformVersion = platformVersion;
+      _isHarmony = isHarmony;
+      _harmonyVersion = harmonyVersion;
+      _isPureMode = isPureMode;
     });
   }
 
@@ -52,10 +61,10 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Harmony Plugin example'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Text('is harmony os: $_isHarmony\nharmony version: $_harmonyVersion\npure mode: $_isPureMode'),
         ),
       ),
     );

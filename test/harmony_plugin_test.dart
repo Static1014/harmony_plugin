@@ -9,7 +9,22 @@ class MockHarmonyPluginPlatform
     implements HarmonyPluginPlatform {
 
   @override
-  Future<String?> getPlatformVersion() => Future.value('42');
+  Future<String> getHarmonyVersion() {
+    // TODO: implement getHarmonyVersion
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> isHarmonyOS() {
+    // TODO: implement isHarmonyOS
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> isHarmonyPureMode() {
+    // TODO: implement isHarmonyPureMode
+    throw UnimplementedError();
+  }
 }
 
 void main() {
@@ -24,6 +39,6 @@ void main() {
     MockHarmonyPluginPlatform fakePlatform = MockHarmonyPluginPlatform();
     HarmonyPluginPlatform.instance = fakePlatform;
 
-    expect(await harmonyPlugin.getPlatformVersion(), '42');
+    expect(await harmonyPlugin.isHarmonyOS(), false);
   });
 }

@@ -1,78 +1,75 @@
-package android.src.main.kotlin.com.static4u.harmony_plugin;
+package com.static4u.harmony_plugin
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.provider.Settings;
-import android.text.TextUtils;
-
-import java.lang.reflect.Method;
+import android.annotation.SuppressLint
+import android.content.Context
+import android.provider.Settings
+import android.text.TextUtils
+import android.util.Log
 
 /**
  * 获取鸿蒙系统信息
  */
-public class HarmonyUtil {
+object HarmonyUtil {
+  val isHarmonyOs: Boolean
     /**
      * 是否为鸿蒙系统
      *
      * @return true为鸿蒙系统
      */
-    public static boolean isHarmonyOs() {
-        try {
-            Class<?> buildExClass = Class.forName("com.huawei.system.BuildEx");
-            Object osBrand = buildExClass.getMethod("getOsBrand").invoke(buildExClass);
-            if (osBrand == null) {
-                return false;
-            }
-            boolean isHarmony = "Harmony".equalsIgnoreCase(osBrand.toString());
-            NSLog.i("当前设备是鸿蒙系统");
-            return isHarmony;
-        } catch (Exception e) {
-            NSLog.printException(e);
-            return false;
-        }
+    get() = try {
+      val buildExClass = Class.forName("com.huawei.system.BuildEx")
+      val osBrand = buildExClass.getMethod("getOsBrand").invoke(buildExClass)
+      if (osBrand == null) {
+        false
+      } else {
+        val isHarmony = "Harmony".equals(osBrand.toString(), ignoreCase = true)
+        Log.i("HarmonyUtil", "当前设备是鸿蒙系统")
+        isHarmony
+      }
+    } catch (e: Exception) {
+      e.printStackTrace()
+      false
     }
-
+  val harmonyVersion: String
     /**
      * 获取鸿蒙系统版本号
      *
      * @return 版本号
      */
-    public static String getHarmonyVersion() {
-        return getProp("hw_sc.build.platform.version", "");
-    }
+    get() = getProp("hw_sc.build.platform.version", "")
 
-    @SuppressLint("PrivateApi")
-    private static String getProp(String property, String defaultValue) {
-        try {
-            Class<?> spClz = Class.forName("android.os.SystemProperties");
-            Method method = spClz.getDeclaredMethod("get", String.class);
-            String value = (String) method.invoke(spClz, property);
-            if (TextUtils.isEmpty(value)) {
-                return defaultValue;
-            }
-            NSLog.i("当前设备是鸿蒙" + value + "系统");
-            return value;
-        } catch (Exception e) {
-            NSLog.printException(e);
-        }
-        return defaultValue;
+  @SuppressLint("PrivateApi")
+  private fun getProp(property: String, defaultValue: String): String {
+    try {
+      val spClz = Class.forName("android.os.SystemProperties")
+      val method = spClz.getDeclaredMethod("get", String::class.java)
+      val value = method.invoke(spClz, property) as String
+      if (TextUtils.isEmpty(value)) {
+        return defaultValue
+      }
+      Log.i("HarmonyUtil", "当前设备是鸿蒙" + value + "系统")
+      return value
+    } catch (e: Exception) {
+      e.printStackTrace()
     }
+    return defaultValue
+  }
 
-    /**
-     * 判断是否开启鸿蒙纯净模式
-     */
-    public static boolean isPureMode(Context context) {
-        boolean result = false;
-        if (!isHarmonyOs()) {
-            return false;
-        }
-        try {
-            if (context != null) {
-                result = 0 == Settings.Secure.getInt(context.getContentResolver(), "pure_mode_state", 0);
-            }
-        } catch (Exception e) {
-            NSLog.printException(e);
-        }
-        return result;
+  /**
+   * 判断是否开启鸿蒙纯净模式
+   */
+  fun isPureMode(context: Context?): Boolean {
+    var result = false
+    if (!isHarmonyOs) {
+      return false
     }
+    try {
+      if (context != null) {
+        result = 0 == Settings.Secure.getInt(context.contentResolver, "pure_mode_state", 0)
+      }
+    } catch (e: Exception) {
+      e.printStackTrace()
+    }
+    return result
+  }
 }

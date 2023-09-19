@@ -1,8 +1,15 @@
-
 import 'harmony_plugin_platform_interface.dart';
 
 class HarmonyPlugin {
-  Future<String?> getPlatformVersion() {
-    return HarmonyPluginPlatform.instance.getPlatformVersion();
+  Future<bool> isHarmonyOS() {
+    return HarmonyPluginPlatform.instance.isHarmonyOS();
+  }
+
+  Future<String> getHarmonyVersion() {
+    return HarmonyPluginPlatform.instance.getHarmonyVersion();
+  }
+
+  Future<bool> isHarmonyPureMode() {
+    return HarmonyPluginPlatform.instance.isHarmonyPureMode();
   }
 }
