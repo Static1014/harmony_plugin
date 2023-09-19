@@ -1,3 +1,8 @@
+## 0.0.4
+
+1. 修改最低flutter sdk版本号为3.3.0；
+2. dart format 格式化文件；
+
 ## 0.0.3
 
 1. 修改flutter sdk 版本号;

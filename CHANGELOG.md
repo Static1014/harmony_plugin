@@ -1,3 +1,8 @@
+## 0.0.4
+
+1. Change the minimum flutter sdk version number to 3.3.0;
+2. dart format Format the file.
+
 ## 0.0.3
 
 1. Change the flutter sdk version number;
