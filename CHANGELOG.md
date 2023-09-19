@@ -1,3 +1,7 @@
+## 0.0.3
+
+1. Change the flutter sdk version number;
+
 ## 0.0.2
 
 1. Add Chinese update logs;
