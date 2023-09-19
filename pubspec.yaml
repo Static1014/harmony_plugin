@@ -1,6 +1,6 @@
 name: harmony_plugin
 description: A new Flutter plugin for developers to check whether the device is a HarmonyOS.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/Static1014/harmony_plugin.git
 
 environment:
