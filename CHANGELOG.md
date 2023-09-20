@@ -1,3 +1,7 @@
+## 0.1.0
+
+1. Add an ios platform and return a fixed value.
+
 ## 0.0.4
 
 1. Change the minimum flutter sdk version number to 3.3.0;
